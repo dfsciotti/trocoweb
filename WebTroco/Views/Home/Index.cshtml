@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script>
+    function CalculaTroco()
+    {
+        var vlrCompra = $('#txtVlrCompra').val();
+        var vlrPagto = $('#txtVlrPagto').val();
+
+        $.ajax({
+            cache: false,
+            url: '@Url.Action("CalculaTroco")',
+            data:
+            {
+                'vlrCompra': vlrCompra,
+                'vlrPagto': vlrPagto
+            },
+            type: 'GET',
+            success: function (response)
+            {
+                document.getElementById("resultado").innerHTML = response;
+            },
+            error: function (er)
+            {
+                alert('Error!' + er);
+            }
+        });        
+    }
+
+</script>
+
+
+<div class="jumbotron">
+    <h1>Cálculo de Troco</h1>
+</div>
+<div class="form-row">
+    <label for="c2">Valor da Compra</label>
+    <div class="input-group">
+        <span class="input-group-addon">R$</span>
+        <input id="txtVlrCompra" type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
+    </div>
+    <p></p>
+    <label for="c2">Valor do Pagamento</label>
+    <div class="input-group">
+        <span class="input-group-addon">R$</span>
+        <input id="txtVlrPagto" type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
+    </div>
+    <p></p>
+    <p><a id="btnCalcula" onclick="CalculaTroco()" class="btn btn-primary btn-lg">Calcular Troco</a></p>
+    <p></p>
+    <h3>
+        <p id="resultado"></p>
+    </h3>
+
+</div>
